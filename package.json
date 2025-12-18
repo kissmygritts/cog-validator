@@ -1,0 +1,14 @@
+{
+  "name": "cog-validator",
+  "module": "src/index.ts",
+  "type": "module",
+  "bin": {
+    "cog-validate": "src/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
