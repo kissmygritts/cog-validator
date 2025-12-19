@@ -88,7 +88,7 @@ export function validate(structure: TiffStructure): ValidationResult {
 
   const ifdOffsets = ifds.map((ifd) => Number(ifd.offset));
   const lastIfdEnd =
-    Math.max(...ifdOffsets) + estimateIfdSize(ifds[ifds.length] - 1);
+    Math.max(...ifdOffsets) + estimateIfdSize(ifds[ifds.length - 1]!);
 
   const tileDataOffsets: number[] = [];
   ifds.forEach((ifd) => {
@@ -120,6 +120,5 @@ export function validate(structure: TiffStructure): ValidationResult {
 function estimateIfdSize(ifd: Ifd): number {
   const entrySize = 12;
   const overhead = 6;
-
-  return overhead + ifd.entries.length + entrySize;
+  return overhead + ifd.entries.length * entrySize;
 }

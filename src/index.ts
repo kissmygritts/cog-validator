@@ -79,7 +79,6 @@ async function main(): Promise<void> {
     process.exit(ExitCode.Error);
   }
 
-  // Check file exists
   const file = Bun.file(args.file);
   const exists = await file.exists();
 
@@ -88,7 +87,6 @@ async function main(): Promise<void> {
     process.exit(ExitCode.Error);
   }
 
-  // Read and parse
   let buffer: ArrayBuffer;
   try {
     buffer = await file.arrayBuffer();
@@ -110,10 +108,8 @@ async function main(): Promise<void> {
     process.exit(ExitCode.Error);
   }
 
-  // Validate
   const result = validate(structure);
 
-  // Output
   if (args.json) {
     console.log(JSON.stringify(result, null, 2));
   } else if (args.verbose) {
@@ -143,7 +139,6 @@ async function main(): Promise<void> {
       result.warnings.forEach((w) => console.log(`  - ${w}`));
     }
   } else {
-    // Default: simple output
     if (result.valid) {
       console.log(`✓ ${args.file} is a valid COG`);
     } else {
@@ -155,5 +150,4 @@ async function main(): Promise<void> {
   process.exit(result.valid ? ExitCode.Valid : ExitCode.Invalid);
 }
 
-// Run it
 main();
