@@ -1,3 +1,4 @@
+import packageJson from "../package.json";
 import { parseTiff } from "./tiff-parser";
 import type { TiffStructure } from "./types";
 import { validate } from "./validator";
@@ -27,6 +28,7 @@ Usage:
 Options:
   --json      Output results as JSON
   --verbose   Show detailed validation information
+  --version   Show version number
   --help      Show this help message
 
 Exit codes:
@@ -48,6 +50,7 @@ function parseArgs(args: string[]): {
   json: boolean;
   verbose: boolean;
   help: boolean;
+  version: boolean;
 } {
   // Bun.argv: [bun, script.ts, ...userArgs]
   const userArgs = args.slice(2);
@@ -57,6 +60,7 @@ function parseArgs(args: string[]): {
     json: userArgs.includes("--json"),
     verbose: userArgs.includes("--verbose"),
     help: userArgs.includes("--help"),
+    version: userArgs.includes("--version"),
   };
 }
 
@@ -71,6 +75,11 @@ async function main(): Promise<void> {
 
   if (args.help) {
     printUsage();
+    process.exit(ExitCode.Valid);
+  }
+
+  if (args.version) {
+    console.log(`cog-validate ${packageJson.version}`);
     process.exit(ExitCode.Valid);
   }
 
