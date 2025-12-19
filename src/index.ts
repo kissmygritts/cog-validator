@@ -1,4 +1,5 @@
 import { parseTiff } from "./tiff-parser";
+import type { TiffStructure } from "./types";
 import { validate } from "./validator";
 
 /**
@@ -90,12 +91,12 @@ async function main(): Promise<void> {
   let buffer: ArrayBuffer;
   try {
     buffer = await file.arrayBuffer();
-  } catch (err) {
+  } catch (_err) {
     console.error(`Error: Could not read file: ${args.file}`);
     process.exit(ExitCode.Error);
   }
 
-  let structure;
+  let structure: TiffStructure;
   try {
     structure = parseTiff(buffer);
   } catch (err) {
@@ -131,19 +132,25 @@ async function main(): Promise<void> {
 
     if (result.errors.length > 0) {
       console.log("\nErrors:");
-      result.errors.forEach((e) => console.log(`  - ${e}`));
+      result.errors.forEach((e) => {
+        console.log(`  - ${e}`);
+      });
     }
 
     if (result.warnings.length > 0) {
       console.log("\nWarnings:");
-      result.warnings.forEach((w) => console.log(`  - ${w}`));
+      result.warnings.forEach((w) => {
+        console.log(`  - ${w}`);
+      });
     }
   } else {
     if (result.valid) {
       console.log(`✓ ${args.file} is a valid COG`);
     } else {
       console.log(`✗ ${args.file} is not a valid COG`);
-      result.errors.forEach((e) => console.log(`  ${e}`));
+      result.errors.forEach((e) => {
+        console.log(`  ${e}`);
+      });
     }
   }
 

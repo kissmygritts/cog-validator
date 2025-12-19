@@ -1,4 +1,4 @@
-import type { TiffHeader, Ifd, IfdEntry, TiffStructure } from "./types";
+import type { Ifd, IfdEntry, TiffHeader, TiffStructure } from "./types";
 
 /**
  * TIFF tag data types and their sizes in bytes.
@@ -7,7 +7,7 @@ import type { TiffHeader, Ifd, IfdEntry, TiffStructure } from "./types";
  * which determines whether the value fits inline in the IFD
  * entry or requires an offset to elsewhere in the file.
  */
-const TAG_TYPE_SIZES: Record<number, number> = {
+const _TAG_TYPE_SIZES: Record<number, number> = {
   1: 1, // BYTE
   2: 1, // ASCII
   3: 2, // SHORT

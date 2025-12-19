@@ -5,7 +5,12 @@
   "bin": {
     "cog-validate": "src/index.ts"
   },
+  "scripts": {
+    "check": "biome check src/",
+    "fix": "biome check --write src/"
+  },
   "devDependencies": {
+    "@biomejs/biome": "^2.3.10",
     "@types/bun": "latest"
   },
   "peerDependencies": {

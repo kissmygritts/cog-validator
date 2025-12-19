@@ -1,4 +1,4 @@
-import type { TiffStructure, Ifd, ValidationResult } from "./types";
+import type { Ifd, TiffStructure, ValidationResult } from "./types";
 
 /**
  * TIFF tag IDs relevant to COG validation.
@@ -88,6 +88,7 @@ export function validate(structure: TiffStructure): ValidationResult {
 
   const ifdOffsets = ifds.map((ifd) => Number(ifd.offset));
   const lastIfdEnd =
+    // biome-ignore lint/style/noNonNullAssertion: length checked above
     Math.max(...ifdOffsets) + estimateIfdSize(ifds[ifds.length - 1]!);
 
   const tileDataOffsets: number[] = [];
